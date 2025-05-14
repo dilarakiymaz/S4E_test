@@ -57,7 +57,41 @@ These tests verify the functionality of both S4E logo buttons on the page. Click
     page.locator('footer').getByRole('link', { name: 'S4E Security For Everyone' });
     ```
 
+#### 6. Login Button
+- **Location:** Navigation bar (top-right)
+- **Behavior:** Clicking the "Login" button redirects the user to the login page.
+- **Expected URL:** `https://app.s4e.io/sign-in`
+- **Selector Strategy:** `getByRole('button', { name: 'Login' })`
+- **Navigation Assertion:** Uses `'load'` wait state and `toHaveURL` to verify redirection
+
+#### 7. Join Button
+- **Location:** Navigation bar (top-right)
+- **Behavior:** Clicking the "Join" button redirects the user to the signup page.
+- **Expected URL:** `https://app.s4e.io/sign-up`
+- **Selector Strategy:** `getByRole('button', { name: 'Join' })`
+- **Navigation Assertion:** Uses `'load'` wait state and `toHaveURL` to verify redirection
+
 These tests confirm the core navigation logic via logo links, ensuring accessibility standards and correct routing behavior.
 
+## 🆕 Latest Updates Section
 
+These tests verify the visibility and structure of the "Latest updates" module on the page `https://s4e.io/free-security-tools`, which showcases the most recent tools and scanners. Each item includes a clickable title, a timestamp, and a severity level such as “Medium” or “Critical”.
+
+### Covered Tests
+
+#### 1. Visibility and Clickability
+- **File:** `latest-updates-visible.test.ts`
+- **Purpose:** Ensures that the "Latest updates" section is rendered and at least one update card is visible and clickable.
+- **Behavior:**
+  - Checks for the section heading.
+  - Verifies that at least one update title appears and responds to clicks.
+
+#### 2. Card Count Enforcement
+- **File:** `latest-updates-count.test.ts`
+- **Purpose:** Confirms that exactly four update entries are listed at any given time.
+- **Behavior:**
+  - Scans the DOM and targets the title rows (`<tr>`) in the updates table.
+  - Asserts that exactly 4 update cards are rendered.
+
+> Note: These tests do not check the presence or content of severity labels, as all cards redirect in the same way regardless of severity.
 
