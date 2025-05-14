@@ -32,5 +32,32 @@ This section includes automated tests related to the cookie consent banner and u
 - **Solution:** Instead of using `expect(...).toBeVisible()` which fails on hidden elements, the test uses `isVisible()` to check availability and conditionally clicks the button if visible.
 - **Note:** This ensures the test does not falsely fail due to frontend rendering limitations that do not reflect broken functionality.
 
----
+
+## 🔗 Logo Redirects
+
+These tests verify the functionality of both S4E logo buttons on the page. Clicking either the top or bottom logo should navigate the user to the homepage (`https://s4e.io/`).
+
+### Covered Tests
+
+#### 1. Header Logo Redirect
+- **Location:** Top-left corner of the page
+- **Behavior:** Clicking the logo navigates to `https://s4e.io/`
+- **Selector Strategy:** The header region is scoped using `header` and the link is matched by its accessible name: `'S4E Security For Everyone'`.
+
+#### 2. Footer Logo Redirect
+- **Location:** Bottom of the page (footer section)
+- **Behavior:** Clicking the logo navigates to `https://s4e.io/`
+- **Challenges Encountered:**
+  - Multiple links in the footer contained the text “S4E” (e.g., LinkedIn and Twitter aria-labels).
+  - Playwright's strict mode threw errors due to ambiguous matching.
+- **Solution:**
+  - The locator was scoped to the `footer` region and matched by the exact accessible name to avoid overlaps.
+  - The correct link was identified using:
+    ```ts
+    page.locator('footer').getByRole('link', { name: 'S4E Security For Everyone' });
+    ```
+
+These tests confirm the core navigation logic via logo links, ensuring accessibility standards and correct routing behavior.
+
+
 
