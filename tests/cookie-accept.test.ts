@@ -6,3 +6,6 @@ test('Accept All cookies closes the banner', async ({ page }) => {
   await acceptButton.click();
   await expect(acceptButton).not.toBeVisible();
 });
+
+
+
