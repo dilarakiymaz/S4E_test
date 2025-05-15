@@ -284,3 +284,49 @@ These tests validate the **Recommended Tools** carousel on the page [`https://s4
   - Verifies that only one leftward transition occurs.
 
 > **Note:** All carousel navigation tests use `.slick-slide.slick-active` and dynamic text polling to reliably track visible tool changes despite animation and timing.
+
+## ⭐ Most Used Tools Carousel
+
+These tests verify the behavior of the **Most Used Tools** carousel on the page [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools). This section highlights the tools most frequently used by visitors and includes interactive horizontal scrolling with navigation arrows.
+
+### Covered Tests
+
+#### 1. Card Redirection
+- **File:** `mostused-card-redirect.test.ts`
+- **Purpose:** Verifies that clicking on a tool card in the carousel redirects the user to that tool’s detail page.
+- **Behavior:**
+  - Selects the first visible `.slick-active` tool card.
+  - Clicks the card and checks that the URL matches the `href` of the tool.
+
+#### 2. Right Arrow Scroll
+- **File:** `mostused-arrow-right.test.ts`
+- **Purpose:** Ensures that clicking the right arrow scrolls the carousel to the next set of tool cards.
+- **Behavior:**
+  - Captures the first visible card before the scroll.
+  - Clicks the right arrow button.
+  - Asserts that a different card is now visible.
+
+#### 3. Left Arrow Scroll
+- **File:** `mostused-arrow-left.test.ts`
+- **Purpose:** Verifies that clicking the left arrow scrolls the carousel back to previous cards.
+- **Behavior:**
+  - First clicks the right arrow to advance the carousel.
+  - Then clicks the left arrow.
+  - Confirms that a different card is visible again.
+
+#### 4. Right Arrow Double Click Behavior
+- **File:** `mostused-arrow-right-double.test.ts`
+- **Purpose:** Confirms that clicking the right arrow twice in quick succession still changes the visible card correctly.
+- **Behavior:**
+  - Double clicks the right arrow button quickly.
+  - Asserts that the card shown afterward is different from the initial card.
+
+#### 5. Left Arrow Double Click Behavior
+- **File:** `mostused-arrow-left-double.test.ts`
+- **Purpose:** Confirms that double clicking the left arrow during scroll does not break carousel behavior.
+- **Behavior:**
+  - Clicks right arrow once to move forward.
+  - Quickly double clicks the left arrow.
+  - Checks that the visible card is different from the one after the right scroll.
+
+> **Note:** All tests rely on `.slick-slide.slick-active` to ensure interaction only with currently visible elements, avoiding off-screen or cloned DOM elements rendered by the carousel engine.

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('Recommended Tools - Second left arrow click during scroll is ignored', async ({ page }) => {
+test('Recommended Tools - Second left arrow click during scroll is ignored', async ({ page }) => {
   await page.goto('https://s4e.io/free-security-tools');
 
   const section = page.locator('h3:has-text("Recommended")').locator('xpath=ancestor::section[1]');
