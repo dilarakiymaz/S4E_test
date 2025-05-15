@@ -330,3 +330,70 @@ These tests verify the behavior of the **Most Used Tools** carousel on the page 
   - Checks that the visible card is different from the one after the right scroll.
 
 > **Note:** All tests rely on `.slick-slide.slick-active` to ensure interaction only with currently visible elements, avoiding off-screen or cloned DOM elements rendered by the carousel engine.
+
+
+## 🔍 All Tools Page – Test Coverage and Validations
+
+These tests verify the functionality and UI behaviors on the **All Tools** section of the page [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools), ensuring a seamless user experience across key interactions such as search, filters, tool navigation, and pagination.
+
+### Covered Tests
+
+#### 1. Tool Name Tooltip on Hover
+- **Purpose:** Ensures that truncated tool names show the full name on hover.
+- **Behavior:**
+  - Locates a tool name that overflows or is cut off.
+  - Hovers over the element.
+  - Verifies that a tooltip with the full name becomes visible.
+
+#### 2. Tool Card Navigation
+- **Purpose:** Validates that clicking on a tool row redirects to the corresponding tool detail page.
+- **Behavior:**
+  - Locates a tool entry (row or card).
+  - Clicks on it.
+  - Asserts that the browser navigates to a `/tools/[tool-slug]` page.
+
+#### 3. Search Bar Filters Tools by Keyword
+- **Purpose:** Ensures that keyword search filters the visible tools.
+- **Behavior:**
+  - Types a relevant keyword into the search bar.
+  - Verifies that the list is updated to show only matching tools.
+
+#### 4. No Results State for Invalid Searches
+- **Purpose:** Confirms that irrelevant queries return a proper “no results” state.
+- **Behavior:**
+  - Enters a random or invalid keyword.
+  - Verifies that the tool list becomes empty.
+  - Confirms that a "no tool found" message is shown.
+
+#### 5. Search Clear Icon Behavior
+- **Purpose:** Checks the presence and functionality of the clear (trash) icon in the search bar.
+- **Behavior:**
+  - Types any input into the search bar.
+  - Verifies that the clear icon appears.
+  - Clicks the icon and confirms that the input is cleared and the full tool list is restored.
+
+#### 6. Pagination Updates Tool List
+- **Purpose:** Verifies that clicking on pagination buttons updates the displayed tool list.
+- **Behavior:**
+  - Navigates to the next page using pagination.
+  - Asserts that the list updates accordingly and the URL reflects the correct page.
+
+#### 7. Category Filter Updates URL
+- **Purpose:** Ensures that choosing a category from the dropdown updates the tool list and the URL.
+- **Behavior:**
+  - Selects a category (e.g., DNS, SSL).
+  - Confirms that the URL includes `category=[selected]` and the filtered list is updated.
+
+#### 8. Asset Type Filter Updates URL
+- **Purpose:** Validates that filtering by asset type updates the visible tools and URL.
+- **Behavior:**
+  - Selects "Asset Owner" or "Everyone" from the filter.
+  - Asserts that `user_type=[value]` appears in the URL and the list updates.
+
+#### 9. Severity Filter Updates URL
+- **Purpose:** Confirms that selecting severity levels filters the tool list and updates the URL.
+- **Behavior:**
+  - Chooses a severity like "Low" or "High".
+  - Verifies that the `severity=[level]` is reflected in the URL and the list shows corresponding results.
+
+> These tests ensure that all filter components, navigation behaviors, and user interactions within the All Tools section are working as expected, contributing to a consistent and intuitive user experience.

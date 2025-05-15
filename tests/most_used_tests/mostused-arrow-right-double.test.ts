@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('Most Used Tools - Double right arrow click does not overscroll', async ({ page }) => {
+test('Most Used Tools - Double right arrow click does not overscroll', async ({ page }) => {
   await page.goto('https://s4e.io/free-security-tools');
 
   const section = page.locator('h3:has-text("Most Used")').locator('xpath=ancestor::section[1]');
