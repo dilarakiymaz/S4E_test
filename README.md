@@ -75,7 +75,7 @@ These tests confirm the core navigation logic via logo links, ensuring accessibi
 
 ## 🆕 Latest Updates Section
 
-These tests verify the visibility and structure of the "Latest updates" module on the page `https://s4e.io/free-security-tools`, which showcases the most recent tools and scanners. Each item includes a clickable title, a timestamp, and a severity level such as “Medium” or “Critical”.
+These tests verify the visibility and structure of the initial "Latest updates" module on the page `https://s4e.io/free-security-tools`, which showcases the most recent tools and scanners. Each item includes a clickable title, a timestamp, and a severity level such as “Medium” or “Critical”.
 
 ### Covered Tests
 
@@ -149,3 +149,63 @@ These tests validate that the **"See all"** buttons correctly filter tools based
   - Checks that the URL includes `scan_type=asset_owner`.
 
 > **Note:** Since both buttons share the same accessible name, their parent context or index is used to distinguish them reliably in the tests.
+
+
+## 🧭 Latest Tools Carousel Navigation
+
+These tests verify the functionality of the **Latest Tools** carousel on the page [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools), which displays security tool cards in a horizontally scrollable layout. Users can navigate between tool blocks using left and right arrows.
+
+### Covered Tests
+
+#### 1. Right Arrow Scrolls Forward
+- **File:** `arrow-right.test.ts`
+- **Purpose:** Verifies that clicking the right arrow scrolls the carousel forward.
+- **Behavior:**
+  - Stores the first visible tool card.
+  - Clicks the right arrow.
+  - Waits for scroll animation to complete.
+  - Confirms that the first card has changed.
+
+#### 2. Left Arrow Scrolls Backward
+- **File:** `arrow-left.test.ts`
+- **Purpose:** Verifies that clicking the left arrow scrolls the carousel backward.
+- **Behavior:**
+  - Stores the first visible card.
+  - Clicks the left arrow.
+  - Waits for scroll to finish.
+  - Asserts that the first card has changed.
+
+#### 3. Double Click on Right Arrow
+- **File:** `arrow-right-double-click.test.ts`
+- **Purpose:** Ensures the carousel remains functional after two quick right arrow clicks.
+- **Behavior:**
+  - Clicks the right arrow twice in rapid succession.
+  - Waits for the animation to complete.
+  - Confirms that at least one scroll occurred (the visible card changed).
+
+#### 4. Double Click on Left Arrow
+- **File:** `arrow-left-double-click.test.ts`
+- **Purpose:** Ensures the carousel scrolls correctly after two quick left arrow clicks.
+- **Behavior:**
+  - Clicks the left arrow twice rapidly.
+  - Waits for the scroll animation.
+  - Asserts that at least one card change occurred.
+
+#### 5. Ignored Second Right Arrow Click During Scroll
+- **File:** `arrow-right-skip-protection.test.ts`
+- **Purpose:** Validates that a second right arrow click during an ongoing scroll is ignored.
+- **Behavior:**
+  - Clicks the right arrow once and immediately clicks it again.
+  - Waits for the scroll to finish.
+  - Confirms that only one scroll was applied by checking the resulting card.
+
+#### 6. Ignored Second Left Arrow Click During Scroll
+- **File:** `arrow-left-skip-protection.test.ts`
+- **Purpose:** Validates that a second left arrow click during a scroll animation is ignored.
+- **Behavior:**
+  - Clicks the left arrow twice quickly.
+  - Waits for scroll to complete.
+  - Verifies that only one scroll was processed by comparing card results.
+
+> **Note:** All carousel tests include animation delay handling using `page.waitForTimeout(...)`. Each test assumes the carousel scrolls a fixed group of tool cards and ignores overlapping input while the scroll is in progress.
+
