@@ -95,3 +95,57 @@ These tests verify the visibility and structure of the "Latest updates" module o
 
 > Note: These tests do not check the presence or content of severity labels, as all cards redirect in the same way regardless of severity.
 
+## 🔎 Full Scan Input Validation
+
+These tests verify the behavior of the **Full Scan** section on the page `https://s4e.io/free-security-tools`. It checks input validation and expected navigation behavior.
+
+### Covered Tests
+
+#### 1. Empty Input Validation
+- **File:** `fullscan-empty.test.ts`
+- **Purpose:** Ensures that clicking "Start Full Scan" without input displays a validation warning.
+- **Behavior:**
+  - Clicks the "Start Full Scan" button with an empty input field.
+  - Asserts that a modal appears explaining valid input formats (Domain, IPv4, Subdomain).
+
+#### 2. Invalid Input Format
+- **File:** `fullscan-invalid.test.ts`
+- **Purpose:** Ensures that invalid input (e.g., `"invalidinput"`) triggers an error message.
+- **Behavior:**
+  - Fills the input field with a malformed value.
+  - Clicks the scan button.
+  - Verifies that the modal appears to notify the user of incorrect format.
+
+#### 3. Valid Input Triggers Navigation
+- **File:** `fullscan-valid.test.ts`
+- **Purpose:** Verifies that valid input (e.g., `"s4e.io"`) initiates a scan and redirects.
+- **Behavior:**
+  - Inputs a valid domain.
+  - Clicks "Start Full Scan".
+  - Asserts that the page redirects to the scan confirmation page under `https://app.s4e.io/welcome/group-scan`.
+
+---
+
+## 🧭 Tool Filter Buttons: Everyone & Asset Owners
+
+These tests validate that the **"See all"** buttons correctly filter tools based on the user's selection (**Everyone** vs **Asset Owners**).
+
+### Covered Tests
+
+#### 1. "See all" under Everyone
+- **File:** `tool-filter-everyone.test.ts`
+- **Purpose:** Verifies that clicking "See all" under the "Everyone" column filters the tool list for general users.
+- **Behavior:**
+  - Finds the left-side "See all" button.
+  - Clicks the button.
+  - Checks that the URL includes `scan_type=everyone`.
+
+#### 2. "See all" under Asset Owners
+- **File:** `tool-filter-assetowners.test.ts`
+- **Purpose:** Verifies that clicking "See all" under the "Asset Owners" column filters the tools for domain/IP owners.
+- **Behavior:**
+  - Finds the right-side "See all" button.
+  - Clicks the button.
+  - Checks that the URL includes `scan_type=asset_owner`.
+
+> **Note:** Since both buttons share the same accessible name, their parent context or index is used to distinguish them reliably in the tests.
