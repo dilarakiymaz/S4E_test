@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('Severity dropdown updates URL correctly for each option', async ({ page }) => {
+test('Severity dropdown updates URL correctly for each option', async ({ page }) => {
   const severities = [
     { label: 'Informational', value: 'info' },
     { label: 'Low', value: 'low' },

@@ -1,5 +1,30 @@
 # S4E_test
 S4E's test engineer internship position case 
+
+## ▶️ Running the Tests
+
+This section explains how to execute the test suite using Docker. You can run **all tests together** or **target a specific test file**.
+
+### 🔧 One-Time Setup
+
+Make sure the following are completed before running any tests:
+
+- Docker is installed and running on your system.
+- You are in the root directory of the project (`S4E_test`).
+- The Docker image is built using the following command:
+
+docker build -t s4e-tests .
+
+###  How to Run All Tests at Once
+To execute the entire test suite (every file under tests/):
+
+docker run --rm s4e-tests
+
+### 🧪 How to Run a Specific Test File
+If you only want to run one particular test (e.g., a single component or section) you can override the default command:
+
+docker run --rm s4e-tests npx playwright test tests/<folder-name>/<test-file>.test.ts
+
 # Tests
 
 ## ✅ Cookies
@@ -397,3 +422,124 @@ These tests verify the functionality and UI behaviors on the **All Tools** secti
   - Verifies that the `severity=[level]` is reflected in the URL and the list shows corresponding results.
 
 > These tests ensure that all filter components, navigation behaviors, and user interactions within the All Tools section are working as expected, contributing to a consistent and intuitive user experience.
+
+
+## 🚀 Get Started Section Buttons
+
+These tests validate the functionality of the **“Get started to protecting your digital assets”** section on the page [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools). This section includes two prominent call-to-action buttons: **Start Trial** and **See The Plans**.
+
+### Covered Tests
+
+#### 1. Start Trial Button
+- **File:** `start-trial-button.test.ts`
+- **Purpose:** Verifies that clicking the “Start trial” button redirects the user to the sign-up page.
+- **Expected URL:** `https://app.s4e.io/sign-up`
+- **Selector Strategy:** `a:has-text("Start trial")`
+- **Behavior:**
+  - Locates the button using visible text inside the anchor tag.
+  - Clicks it.
+  - Asserts that the user is redirected to the correct sign-up URL.
+
+#### 2. See The Plans Button
+- **File:** `see-the-plans-button.test.ts`
+- **Purpose:** Verifies that clicking the “See the plans” button redirects the user to the pricing page.
+- **Expected URL:** `https://s4e.io/pricing`
+- **Selector Strategy:** `a:has-text("See the plans")`
+- **Behavior:**
+  - Locates the second CTA button via text inside an anchor tag.
+  - Clicks it.
+  - Confirms navigation to the pricing page.
+
+#### 3. Button Visibility
+- **File:** `buttons-visibility.test.ts`
+- **Purpose:** Ensures both “Start trial” and “See the plans” buttons are visible on initial page load.
+- **Behavior:**
+  - Locates both anchor tags by text.
+  - Asserts that both elements are visible.
+
+#### 4. Section Text Visibility
+- **File:** `get-started-text.test.ts`
+- **Purpose:** Verifies that the section title “Get started to protecting your digital assets” is visible.
+- **Behavior:**
+  - Searches for the exact text on the page.
+  - Asserts its visibility to confirm the section is rendered properly.
+
+#### 5. Responsive Layout (Mobile)
+- **File:** `responsive-check.test.ts`
+- **Purpose:** Ensures that the section and both buttons render properly on mobile-sized screens.
+- **Viewport:** `375x812` (iPhone X)
+- **Behavior:**
+  - Sets the mobile viewport.
+  - Confirms visibility of both CTA buttons in the mobile layout.
+
+> These tests ensure that the main onboarding CTA section works correctly across desktop and mobile, and that both conversion routes are functional and accessible.
+
+## 🛡️ Trust Seal Badge Redirects
+
+These tests validate the functionality of the two clickable **trust badges** located near the footer on the [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools) page. Each badge redirects users to an external verification or review page in a new browser tab.
+
+### Covered Tests
+
+#### 1. G2 Rating Badge Redirect
+- **File:** `g2-rating-redirect.test.ts`
+- **Purpose:** Ensures that clicking the gray G2 star rating badge opens the G2 review page in a new tab.
+- **Expected URL:** `https://www.g2.com/sellers/security-for-everyone`
+- **Selector Strategy:** `img[alt="g2-star-image"]`
+- **Behavior:**
+  - Locates the G2 badge using its `alt` text.
+  - Waits for a new page (tab) to open on click.
+  - Verifies that the new tab successfully navigates to the G2 review page.
+
+#### 2. CSA STAR Certification Badge Redirect
+- **File:** `csa-star-redirect.test.ts`
+- **Purpose:** Verifies that clicking the blue CSA STAR Level 1 certification seal opens the CSA registry page in a new browser tab.
+- **Expected URL:** `https://cloudsecurityalliance.org/star/registry/s4e/services/s4e`
+- **Selector Strategy:** `img[alt="csa-star-image"]`
+- **Behavior:**
+  - Locates the CSA badge using its `alt` attribute.
+  - Listens for a new page event triggered by clicking the image.
+  - Asserts that the opened page loads the correct CSA registry listing.
+
+> **Note:** Both badges use JavaScript-based redirection and open in new tabs (`target="_blank"` behavior). These tests use `context.waitForEvent('page')` in Playwright to capture and validate the destination URL.
+
+## 🦶 Footer Section Redirects
+
+These tests validate the **footer links** found at the bottom of the [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools) page, ensuring that users are correctly redirected when interacting with:
+
+- The S4E logo  
+- LinkedIn button  
+- Twitter (X) button
+
+### Covered Tests
+
+#### 1. Footer Logo Redirect
+- **File:** `footer-logo-redirect.test.ts`
+- **Purpose:** Verifies that clicking the S4E logo in the footer navigates the user to the homepage.
+- **Expected URL:** `https://s4e.io/`
+- **Selector Strategy:** Scoped to `footer`, targets anchor tag containing `img[alt="S4E"]`
+- **Behavior:**
+  - Locates the footer logo using `footer a:has(img[alt="S4E"])`.
+  - Clicks the logo.
+  - Confirms redirection to the homepage.
+
+#### 2. LinkedIn Button Redirect
+- **File:** `footer-linkedin-redirect.test.ts`
+- **Purpose:** Ensures that clicking the LinkedIn icon button opens the S4E LinkedIn company page in a new browser tab.
+- **Expected URL:** `https://www.linkedin.com/company/s4e-io`
+- **Selector Strategy:** `a[aria-label*="linkedin"]`
+- **Behavior:**
+  - Waits for the LinkedIn button to be visible.
+  - Clicks the button and listens for a new page.
+  - Asserts that the newly opened page has the correct LinkedIn URL.
+
+#### 3. Twitter (X) Button Redirect
+- **File:** `footer-twitter-redirect.test.ts`
+- **Purpose:** Confirms that clicking the Twitter/X button opens the S4E Twitter profile in a new tab.
+- **Expected URL:** `https://twitter.com/secforeveryone`
+- **Selector Strategy:** `a[aria-label*="twitter"]` scoped inside `footer`
+- **Behavior:**
+  - Locates the Twitter button based on its `aria-label` attribute.
+  - Clicks the icon and captures the newly opened page.
+  - Verifies that the redirected tab lands on the correct Twitter profile.
+
+> **Note:** Social media buttons use `target="_blank"` and open in new tabs. These tests use Playwright’s `context.waitForEvent('page')` to properly handle and assert navigation in a newly opened tab.
