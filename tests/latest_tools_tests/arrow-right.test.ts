@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('Clicking right arrow in Latest Tools carousel scrolls to next cards', async ({ page }) => {
+test('Clicking right arrow in Latest Tools carousel scrolls to next cards', async ({ page }) => {
   await page.goto('https://s4e.io/free-security-tools');
 
   // İlk kartı al

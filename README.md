@@ -209,3 +209,34 @@ These tests verify the functionality of the **Latest Tools** carousel on the pag
 
 > **Note:** All carousel tests include animation delay handling using `page.waitForTimeout(...)`. Each test assumes the carousel scrolls a fixed group of tool cards and ignores overlapping input while the scroll is in progress.
 
+## 🧾 Scan Report Section – Full Scan Input Validation (Lower Section)
+
+These tests cover the second **"Start Full Scan"** module found near the bottom of the page under the heading **“Sample Cyber Security Scan Report”** at [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools). Users can initiate a scan using a valid domain, subdomain, or IPv4 address.
+
+### Covered Tests
+
+#### 1. Scan Report – Empty Input Validation
+- **File:** `scanreport-empty.test.ts`
+- **Purpose:** Ensures that clicking "Start Full Scan" without entering any input shows a validation modal.
+- **Behavior:**
+  - Locates the section using its heading: *Sample Cyber Security Scan Report*.
+  - Clicks the scan button with an empty input field.
+  - Verifies that a modal appears indicating accepted input types (Domain, IPv4, Subdomain).
+
+#### 2. Scan Report – Invalid Input Format
+- **File:** `scanreport-invalid.test.ts`
+- **Purpose:** Ensures that malformed input (e.g., `not_a_valid_input`) triggers an error modal.
+- **Behavior:**
+  - Enters an invalid scan value into the input field.
+  - Clicks the scan button.
+  - Verifies that a warning modal appears outlining allowed input formats.
+
+#### 3. Scan Report – Valid Input Triggers Navigation
+- **File:** `scanreport-valid.test.ts`
+- **Purpose:** Confirms that entering a valid scan input redirects the user to the scan results page.
+- **Behavior:**
+  - Inputs a valid domain such as `s4e.io`.
+  - Clicks the "Start Full Scan" button.
+  - Asserts that the user is redirected to a confirmation page under `https://app.s4e.io/welcome/group-scan`.
+
+> **Note:** This section uses a different DOM structure than the top scanner. All tests scope interactions based on the heading text to ensure stability regardless of future style or layout changes.
