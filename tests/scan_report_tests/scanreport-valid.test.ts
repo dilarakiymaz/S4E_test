@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('Scan Report - Valid input triggers navigation', async ({ page }) => {
+test('Scan Report - Valid input triggers navigation', async ({ page }) => {
   await page.goto('https://s4e.io/free-security-tools');
 
   const acceptButton = page.getByRole('button', { name: /accept all/i });

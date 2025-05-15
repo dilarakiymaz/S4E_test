@@ -240,3 +240,47 @@ These tests cover the second **"Start Full Scan"** module found near the bottom 
   - Asserts that the user is redirected to a confirmation page under `https://app.s4e.io/welcome/group-scan`.
 
 > **Note:** This section uses a different DOM structure than the top scanner. All tests scope interactions based on the heading text to ensure stability regardless of future style or layout changes.
+
+## 🌟 Recommended Tools Section
+
+These tests validate the **Recommended Tools** carousel on the page [`https://s4e.io/free-security-tools`](https://s4e.io/free-security-tools). This section showcases suggested scanners and is navigable via arrow buttons. Each card links to its corresponding tool detail page.
+
+### Covered Tests
+
+#### 1. Tool Card Redirection
+- **File:** `recommended-card-redirect.test.ts`
+- **Purpose:** Ensures that clicking on a tool card in the Recommended section redirects the user to the correct tool detail page.
+- **Behavior:**
+  - Locates the first `.slick-active` tool card inside the carousel.
+  - Clicks it and checks that the URL matches the `href` value of the card.
+
+#### 2. Right Arrow Navigation
+- **File:** `recommended-arrow-right.test.ts`
+- **Purpose:** Verifies that clicking the right arrow scrolls the carousel and changes the visible tool.
+- **Behavior:**
+  - Captures the name of the first visible tool before the arrow click.
+  - Clicks the right arrow.
+  - Verifies that a different tool is now visible.
+
+#### 3. Left Arrow Navigation
+- **File:** `recommended-arrow-left.test.ts`
+- **Purpose:** Ensures that clicking the left arrow scrolls back to previously visible tools.
+- **Behavior:**
+  - Scrolls right first to enable leftward navigation.
+  - Captures the visible tool, clicks the left arrow, and ensures it changes.
+
+#### 4. Right Arrow Double Click Behavior
+- **File:** `recommended-arrow-right-double.test.ts`
+- **Purpose:** Ensures the second click on the right arrow during an ongoing scroll has no effect.
+- **Behavior:**
+  - Quickly clicks the right arrow twice.
+  - Verifies that only one card transition occurred.
+
+#### 5. Left Arrow Double Click Behavior
+- **File:** `recommended-arrow-left-double.test.ts`
+- **Purpose:** Ensures the second click on the left arrow during an ongoing scroll has no effect.
+- **Behavior:**
+  - Scrolls right once, then quickly clicks the left arrow twice.
+  - Verifies that only one leftward transition occurs.
+
+> **Note:** All carousel navigation tests use `.slick-slide.slick-active` and dynamic text polling to reliably track visible tool changes despite animation and timing.
